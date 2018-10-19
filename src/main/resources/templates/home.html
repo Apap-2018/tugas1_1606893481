@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Home</title>
+    <object th:include="fragments/fragment :: css" th:remove="tag"></object>
+    <object th:include="fragments/fragment :: js" th:remove="tag"></object>
+</head>
+<body>
+<nav th:replace="fragments/fragment :: navbar(pagename='Add')"></nav>
+<h1>Sistem Informasi Kepegawaian</h1>
+<h2>Selamat Datang di Sistem Informasi Kepegawaian</h2>
+<hr>
+<h2>Lihat Data Pegawai berdasarkan NIP</h2>
+<h3>Masukkan Nomor Induk Kepegawaian</h3>
+<form th:action="@{/pegawai}" method="GET">
+    <div class="card-body">
+        <label for="nip">Nomor Lisensi:</label>
+        <input type="text" name="nip" class="form-control"  />
+        <p></p>
+        <button type="submit" class="btn btn-primary">Lihat</button>
+    </div>
+</form>
+<hr>
+<h2>Lihat Detail Jabatan</h2>
+<h3>Pilih Jabatan</h3>
+<form th:action="@{/jabatan/view}" method="GET">
+    <div class="card-body">
+        <select id="jabatan" name="idJabatan">
+            <option th:each="jabatan : ${jabatans}"
+                    th:text="${jabatan.nama}"
+                    th:value="${jabatan.id}"></option>
+        </select>
+        <button type="submit" class="btn btn-primary">Lihat</button>
+    </div>
+</form>
+<hr>
+<h2>Lihat Pegawai Termuda dan Tertua</h2>
+<h3>Pilih Instansi</h3>
+<form th:action="@{/pegawai/termuda-tertua}" method="GET">
+    <div class="card-body">
+        <select id="instansi" name="idInstansi">
+            <option th:each="instansi : ${instansis}"
+                    th:text="${instansi.nama} + ' - ' + ${instansi.provinsi.nama}"
+                    th:value="${instansi.id}"></option>
+        </select>
+        <button type="submit" class="btn btn-primary">Lihat</button>
+    </div>
+</form>
+</body>
+</html>

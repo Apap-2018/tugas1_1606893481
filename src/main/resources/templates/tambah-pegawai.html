@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Tambah Pegawai</title>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <object th:include="fragments/fragment :: css" th:remove="tag"></object>
+    <object th:include="fragments/fragment :: js" th:remove="tag"></object>
+</head>
+<body>
+<nav th:replace="fragments/fragment :: navbar(pagename='Add')"></nav>
+<h1>Tambah Pegawai</h1>
+<form id="addPegawai" th:action="@{/pegawai/tambah}" th:object="${pegawai}" method="post">
+    <table>
+        <tr>
+            <td>Nama</td>
+            <td><input type="text"  th:field="*{nama}"  /></td>
+        </tr>
+        <tr>
+            <td>Tempat Lahir</td>
+            <td><input type="text"  th:field="*{tempatLahir}" /></td>
+        </tr>
+        <tr>
+            <td>Tanggal Lahir</td>
+            <td><input type="date"  th:field="*{tanggalLahir}" /></td>
+        </tr>
+        <tr>
+            <td>Tahun Masuk</td>
+            <td><input type="number"  th:field="*{tahunMasuk}" /></td>
+        </tr>
+        <tr>
+            <td>Provinsi</td>
+            <td>
+                <select th:field="*{instansi.provinsi}" onchange="myFunction()" id="testinsert">
+                    <option th:each="prov : ${provinsi}"
+                            th:value="${prov.id}"
+                            th:text="${prov.nama}"></option>
+                </select>
+            </td>
+        </tr>
+
+        <tr>
+            <td>Nama Instansi</td>
+            <td>
+                <select th:field="*{instansi}" id="testresult">
+                    <option th:each="instansi : ${instansis}"
+                            th:text="${instansi.nama}"
+                            th:value="${instansi.id}"
+                            th:data-provinsi="${instansi.provinsi.id}"></option>
+                </select>
+            </td>
+        </tr>
+        <tr th:each="row, rowStat : ${jabatanToAdd.jabatanList}">
+            <td th:text="${rowStat.count}">0</td>
+            <td id="select-Jabatan">
+                <select id="jabatan" th:field="${jabatanToAdd.jabatanList[__${rowStat.index}__]}">
+                    <option th:each="jabatan : ${jabatans}"
+                            th:text="${jabatan.nama}"
+                            th:value="${jabatan.id}"></option>
+                </select>
+            </td>
+            <td>
+                <button th:unless="${jabatanToAdd.jabatanList.size()==1}" type="submit" name="removeJabatan"
+                        th:value="${rowStat.index}">Remove</button>
+            </td>
+        </tr>
+        <tr>
+            <td></td>
+            <td>
+                <button type="submit" name="addJabatan">Tambah</button>
+            </td>
+        </tr>
+        <td>
+            <button type="submit" name="submit">Submit</button>
+        </td>
+    </table>
+</form>
+
+<script>
+function myFunction() {
+    var x = document.getElementById("testinsert").value;
+    const instansiSelect = document.getElementById("testresult")
+            Array.prototype.forEach.call(instansiSelect.children, (item) => {
+                if(item.getAttribute('data-provinsi') === x) {
+                    $(item).show();
+                   } else {
+                    $(item).hide();
+                   }
+            })
+}
+
+</script>
+</body>
+</html>

@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Tambah Jabatan</title>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <object th:include="fragments/fragment :: css" th:remove="tag"></object>
+    <object th:include="fragments/fragment :: js" th:remove="tag"></object>
+</head>
+<body>
+<nav th:replace="fragments/fragment :: navbar(pagename='Add')"></nav>
+<h1>Tambah Jabatan</h1>
+<form th:action="@{/jabatan/tambah}" th:object="${jabatan}" method="post">
+    <table>
+        <tr>
+            <td>Nama</td>
+            <td><input type="text"  th:field="*{nama}"  /></td>
+        </tr>
+        <tr>
+            <td>Deskripsi</td>
+            <td><input type="text"  th:field="*{deskripsi}" /></td>
+        </tr>
+        <tr>
+            <td>Gaji Pokok</td>
+            <td><input type="number"  th:field="*{gaji_pokok}" /></td>
+        </tr>
+    </table>
+    <td>
+        <button type="submit" name="submit">Simpan</button>
+    </td>
+</form>
+
+</body>
+</html>
