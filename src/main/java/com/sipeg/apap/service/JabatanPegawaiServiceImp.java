@@ -68,4 +68,11 @@ public class JabatanPegawaiServiceImp implements JabatanPegawaiService {
 
         return findAll();
     }
+
+    @Override
+    public Integer countByJabatan(BigInteger idJabatan) {
+        return jabatanPegawaiDb.countByJabatanId(idJabatan);
+    }
+
+
 }

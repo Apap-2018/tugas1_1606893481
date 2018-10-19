@@ -42,6 +42,6 @@ public interface JabatanPegawaiDb extends JpaRepository<JabatanPegawai, Long>{
 
     List<JabatanPegawai> findByPegawaiInstansiProvinsiIdAndJabatanId(BigInteger idProvinsi, BigInteger idJabatan);
 
-
+    Integer countByJabatanId(BigInteger idJabatan);
 
 }

@@ -1,6 +1,7 @@
 package com.sipeg.apap.controller;
 
 import com.sipeg.apap.model.Jabatan;
+import com.sipeg.apap.service.JabatanPegawaiService;
 import com.sipeg.apap.service.JabatanService;
 import org.hibernate.annotations.Parameter;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,6 +13,10 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import java.math.BigInteger;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 /**
  * Created by esak on 10/19/2018.
@@ -21,6 +26,9 @@ import java.math.BigInteger;
 public class JabatanController {
     @Autowired
     JabatanService jabatanService;
+
+    @Autowired
+    JabatanPegawaiService jabatanPegawaiService;
 
     @RequestMapping(value="/jabatan/tambah",method = RequestMethod.GET)
     String addJabatan(Model model){
@@ -77,8 +85,15 @@ public class JabatanController {
 
     @RequestMapping(value="/jabatan/viewall", method = RequestMethod.GET)
     String viewAllJabatan(Model model) {
-        model.addAttribute("jabatans", jabatanService.findAll());
+        List<Jabatan> jabatans = jabatanService.findAll();
+        model.addAttribute("jabatans", jabatans);
 
+        Map<BigInteger,Integer> result = new HashMap<>();
+
+        for (Jabatan jabatan : jabatans)
+            result.put(jabatan.getId(),jabatanPegawaiService.countByJabatan(jabatan.getId()));
+
+        model.addAttribute("count", result);
         return "view-all-jabatan";
     }
 

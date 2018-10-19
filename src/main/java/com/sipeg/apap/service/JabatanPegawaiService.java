@@ -18,4 +18,6 @@ public interface JabatanPegawaiService {
     List<JabatanPegawai> findAll();
 
     List<JabatanPegawai> findByFilter(BigInteger idProvinsi, BigInteger idInstansi, BigInteger idJabatan);
+
+    Integer countByJabatan(BigInteger idJabatan);
 }
