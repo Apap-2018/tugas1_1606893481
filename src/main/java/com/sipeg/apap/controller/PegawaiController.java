@@ -45,7 +45,7 @@ public class PegawaiController {
     private String viewPegawai(@RequestParam("nip") String nip, Model model) {
         Pegawai pegawai = pegawaiService.getDataByNIP(nip);
         model.addAttribute("pegawai", pegawai);
-        model.addAttribute("gaji", pegawai.getGaji());
+        model.addAttribute("gaji", pegawai.getGajiString());
         model.addAttribute("jabatan", pegawai.getJabatan());
 
         model.addAttribute("tanggal", pegawai.getTanggalLahir());

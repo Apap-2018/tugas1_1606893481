@@ -12,6 +12,7 @@ import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import java.math.BigInteger;
+import java.text.DecimalFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
@@ -143,6 +144,12 @@ public class Pegawai {
         double totalGaji = gajiPokok + (gajiPokok * tunjangan / 100);
 
         return totalGaji;
+    }
+
+    public String getGajiString(){
+        double gaji = getGaji();
+        DecimalFormat formatter = new DecimalFormat("#,###");
+        return "Rp" + formatter.format(gaji);
     }
 
     public List<Jabatan> getJabatan() {
